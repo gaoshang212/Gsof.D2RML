@@ -1,0 +1,57 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  # push:
+  #   branches: [ "master" ]
+  # pull_request:
+  #   branches: [ "master" ]
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    env:
+      release_name: "Gsof.D2RML-v${{ github.ref_name }}"
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      working-directory: ./src
+      run: dotnet restore
+    - name: Build
+      working-directory: ./src
+      run: |
+        dotnet publish -c Release -r win-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true /p:Version=${{ github.ref_name }}
+
+        # Pack files
+        7z a -tzip "./releses/${{ env.release_name }}.zip" "./Gsof.D2RML/bin/Release/net8.0-windows/win-x64/publish/*"
+
+        # Delete output directory
+        rm -r "./Gsof.D2RML/bin/Release/net8.0-windows/win-x64/publish/"
+
+    - name: Publish
+      uses: softprops/action-gh-release@v2
+      with:
+        files: "./src/releses/${{ env.release_name }}.zip"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # GITHUB_REPOSITORY: "gaoshang212/MPI.Package"
+        
+        
+
+    #- name: Test
+    #  run: dotnet test --no-build --verbosity normal
+    # - name: Publish the package to nuget.org
+    #   run: dotnet nuget push */bin/Release/*.nupkg -k $env:NUGET_AUTH_TOKEN --source https://api.nuget.org/v3/index.json --skip-duplicate
+    #   env:
+    #     NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
