@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Gsof.D2RML.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gsof.D2RML.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Gsof.D2RML"
+        MinWidth="550"
+        MinHeight="350"
+        Width="550"
+        Height="350"
+        CanResize="False">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Border Padding="5">
+		<Grid RowDefinitions="Auto,*">
+
+			<DockPanel Grid.Row="0" LastChildFill="False">
+				<Button Content="添加帐号" DockPanel.Dock="Left" Click="OnShowAddUserOnClick"/>
+                <Button Content="删除" DockPanel.Dock="Left" Command="{Binding OnDeleteUser}" />
+				<Button Content="运行" DockPanel.Dock="Right" Command="{Binding Launch}" />
+			</DockPanel>
+
+			<DataGrid Grid.Row="1"
+					  ItemsSource="{Binding Users}"
+                      GridLinesVisibility="All"
+                      SelectedItem="{Binding User}">
+				<DataGrid.Columns>
+					<DataGridCheckBoxColumn Header="是否启动"  Binding="{Binding IsLaunch}" />
+					<DataGridTextColumn Header="用户名" Binding="{Binding Username}" />
+					<!--<DataGridTextColumn Header="密码" Binding="{Binding Password}" />-->
+					<DataGridTextColumn Header="Mod" Binding="{Binding Mod}" />
+					<DataGridTextColumn Header="额外的命令行参数" Binding="{Binding Extra}" />
+				</DataGrid.Columns>
+
+			</DataGrid>
+		</Grid>
+	</Border>
+
+
+
+</Window>
+

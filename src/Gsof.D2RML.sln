@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gsof.D2RML", "Gsof.D2RML\Gsof.D2RML.csproj", "{BD3E74DF-5568-4A71-85F2-E085A95628CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD3E74DF-5568-4A71-85F2-E085A95628CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3E74DF-5568-4A71-85F2-E085A95628CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3E74DF-5568-4A71-85F2-E085A95628CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3E74DF-5568-4A71-85F2-E085A95628CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {992371A0-A5F0-4D03-89EA-D24256C1B7F3}
+	EndGlobalSection
+EndGlobal
