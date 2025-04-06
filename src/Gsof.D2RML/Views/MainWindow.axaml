@@ -7,7 +7,7 @@
         x:Class="Gsof.D2RML.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Gsof.D2RML"
+        Title="{Binding Title}"
         MinWidth="550"
         MinHeight="350"
         Width="550"

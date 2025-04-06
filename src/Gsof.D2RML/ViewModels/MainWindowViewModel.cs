@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using Gsof.D2RML.Models;
 using Gsof.D2RML.Utils;
 using Gsof.Extensions;
@@ -13,10 +16,14 @@ namespace Gsof.D2RML.ViewModels
 
         public ObservableCollection<D2RUser> Users { get; set; }
 
+        public string? Title { get; set; } = "D2RML";
+
         public D2RUser? User { get; set; }
 
         public MainWindowViewModel()
         {
+            Title = $"D2RML {GetVersion()}";
+
             Activator = new ViewModelActivator();
             Users = [.. Database.Instance.Get<D2RUser>()];
         }
@@ -45,6 +52,15 @@ namespace Gsof.D2RML.ViewModels
             Users.Remove(user);
 
             Database.Instance.Delete<D2RUser>(i => i.Id == user.Id);
+        }
+
+        private string GetVersion()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var version = fvi.FileVersion;
+
+            return string.IsNullOrEmpty(version) ? string.Empty : Version.Parse(version).ToString(3);
         }
     }
 }
