@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -56,8 +57,14 @@ namespace Gsof.D2RML.ViewModels
 
         private string GetVersion()
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var fileName = Process.GetCurrentProcess().MainModule?.FileName;
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return "未知";
+            }
+
+            var fvi = FileVersionInfo.GetVersionInfo(fileName);
             var version = fvi.FileVersion;
 
             return string.IsNullOrEmpty(version) ? string.Empty : Version.Parse(version).ToString(3);
